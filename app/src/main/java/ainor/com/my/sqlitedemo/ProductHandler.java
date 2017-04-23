@@ -2,6 +2,7 @@ package ainor.com.my.sqlitedemo;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 /**
@@ -42,4 +43,18 @@ public class ProductHandler {
                 values
         );
     }
+
+    // Load all products
+
+    public Cursor loadAllProducts() {
+        Cursor cursor = db.query(
+             "product", new String[]{"_id", "name", "quantity"},
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+        return cursor;
+    };
 }
