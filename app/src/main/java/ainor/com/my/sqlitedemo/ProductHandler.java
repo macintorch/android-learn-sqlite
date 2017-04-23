@@ -67,4 +67,10 @@ public class ProductHandler {
         );
     }
 
+    //Update
+
+    public void updateProduct(int _id, String name, int quantity) {
+
+    }
+
 }

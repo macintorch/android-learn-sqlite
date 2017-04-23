@@ -1,5 +1,6 @@
 package ainor.com.my.sqlitedemo;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -73,6 +74,8 @@ public class LoadActivity extends AppCompatActivity {
         super.onCreateContextMenu(menu, v, menuInfo);
     }
 
+    private static final int UPDATE_REQUEST_CODE = 1;
+
     @Override
     public boolean onContextItemSelected(MenuItem item) {
 
@@ -83,6 +86,15 @@ public class LoadActivity extends AppCompatActivity {
 
             switch (item.getItemId()) {
                 case R.id.menuItemUpdate :
+                    Intent intent = new Intent(this, UpdateActivity.class);
+                    String name = cursor.getString(1);
+                    int quantity = cursor.getInt(2);
+
+                    intent.putExtra("_id", _id);
+                    intent.putExtra("name", name);
+                    intent.putExtra("quantity", quantity);
+
+                    this.startActivityForResult(intent, UPDATE_REQUEST_CODE);
                     break;
                 case R.id.menuItemDelete:
                     productHandler.deleteProduct(_id);
