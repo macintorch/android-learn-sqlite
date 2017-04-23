@@ -56,5 +56,15 @@ public class ProductHandler {
                 null
         );
         return cursor;
-    };
+    }
+
+    //Delete
+    public void deleteProduct(int _id) {
+        db.delete(
+               "product",
+                "_id=?",
+                new String[]{_id+""}
+        );
+    }
+
 }
