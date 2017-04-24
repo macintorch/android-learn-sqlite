@@ -84,4 +84,14 @@ public class ProductHandler {
 
     }
 
+    public Cursor searchProductKeywordByName(String keyword) {
+        return db.query(
+                "product",
+                new String[]{"_id", "name","quantity"},
+                "name like ?",
+                new String[]{"%"+keyword+"%"},
+                null, null, null
+        );
+    }
+
 }

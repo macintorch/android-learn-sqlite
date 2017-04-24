@@ -6,10 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CursorAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
@@ -20,6 +22,8 @@ public class LoadActivity extends AppCompatActivity {
     Cursor cursor;
 
     ListView productsListView;
+
+    EditText keywordEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +49,29 @@ public class LoadActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        keywordEditText = (EditText) findViewById(R.id.keywordEditText);
+        // search as type in editText
+        keywordEditText.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                loadProducts();
+
+                return false;
+            }
+        });
     }
 
     private void loadProducts() {
-        cursor = productHandler.loadAllProducts();
+        // access to the keyword if its there
+        EditText keywordEditText = (EditText) findViewById(R.id.keywordEditText);
+        String keyword = keywordEditText.getText().toString();
+        if (keyword.isEmpty()){
+            cursor = productHandler.loadAllProducts();
+        } else {
+            cursor = productHandler.searchProductKeywordByName(keyword);
+        }
+
         CursorAdapter cursorAdapter = new SimpleCursorAdapter(
             this, R.layout.product_layout,
                 cursor,
@@ -117,5 +140,9 @@ public class LoadActivity extends AppCompatActivity {
             //reload the form
             loadProducts();
         }
+    }
+
+    public void onButtonSearchClick (View view) {
+        loadProducts();
     }
 }
