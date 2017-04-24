@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
@@ -104,5 +105,17 @@ public class LoadActivity extends AppCompatActivity {
         }
 
         return super.onContextItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        Log.d("RESULT_OK", String.valueOf(RESULT_OK));
+        Log.d("RequestCode", String.valueOf(requestCode));
+
+        if (requestCode == UPDATE_REQUEST_CODE) {
+            //reload the form
+            loadProducts();
+        }
     }
 }
