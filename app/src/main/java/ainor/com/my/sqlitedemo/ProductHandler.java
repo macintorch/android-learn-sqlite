@@ -69,7 +69,18 @@ public class ProductHandler {
 
     //Update
 
-    public void updateProduct(int _id, String name, int quantity) {
+    public void updateProduct(int _id, String newName, int newQuantity) {
+
+        ContentValues values = new ContentValues();
+        values.put("name", newName);
+        values.put("quantity", newQuantity);
+
+        db.update(
+                "product",
+                values,
+                "_id=?", new String[]{_id+""}
+
+        );
 
     }
 
